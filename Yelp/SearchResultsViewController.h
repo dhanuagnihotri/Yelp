@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  SearchResultsViewController.h
 //  Yelp
 //
 //  Created by Dhanu Agnihotri on 2/10/15.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface SearchResultsViewController : UIViewController
 
 @end
-
