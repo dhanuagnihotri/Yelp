@@ -86,7 +86,9 @@
                     <constraint firstItem="z5h-YS-EGx" firstAttribute="top" secondItem="FaG-OK-WSj" secondAttribute="bottom" constant="1.5" id="Ihc-2c-RA9"/>
                     <constraint firstItem="z5h-YS-EGx" firstAttribute="leading" secondItem="s4o-WI-Yc6" secondAttribute="trailing" constant="8" id="KI5-Ty-Y0n"/>
                     <constraint firstItem="s4o-WI-Yc6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="MtL-T2-tqx"/>
+                    <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="s4o-WI-Yc6" secondAttribute="bottom" constant="6" id="Ncc-5a-jOG"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ykO-Ze-Zxp" secondAttribute="bottom" constant="8" id="SE9-sW-csS"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="s4o-WI-Yc6" secondAttribute="bottom" constant="8" id="VKU-Xx-rwV"/>
                     <constraint firstItem="RCL-xp-54y" firstAttribute="leading" secondItem="z5h-YS-EGx" secondAttribute="trailing" constant="5" id="W0l-jS-cnp"/>
                     <constraint firstItem="z5h-YS-EGx" firstAttribute="top" secondItem="FaG-OK-WSj" secondAttribute="bottom" constant="1.5" id="Zhk-6O-WV2"/>
                     <constraint firstItem="HA8-z3-EZY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="1" id="aWV-S2-BsN"/>
@@ -108,6 +110,8 @@
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
+                        <exclude reference="Ncc-5a-jOG"/>
+                        <exclude reference="nnL-d3-WWS"/>
                         <exclude reference="Gal-O8-Gn8"/>
                         <exclude reference="Ihc-2c-RA9"/>
                         <exclude reference="bng-8x-gGP"/>

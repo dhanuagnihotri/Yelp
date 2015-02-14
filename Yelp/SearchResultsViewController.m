@@ -10,13 +10,14 @@
 #import "YelpClient.h"
 #import "Business.h"
 #import "BusinessCell.h"
+#import "FiltersViewController.h"
 
 NSString * const kYelpConsumerKey = @"vxKwwcR_NMQ7WaEiQBK_CA";
 NSString * const kYelpConsumerSecret = @"33QCvh5bIF5jIHR5klQr7RtBDhQ";
 NSString * const kYelpToken = @"uRcRswHFYa1VkDrGV6LAW2F8clGh5JHV";
 NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 
-@interface SearchResultsViewController () <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface SearchResultsViewController () <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, FiltersViewControllerDelegate, UISearchBarDelegate>
 @property (strong, nonatomic) IBOutlet UIButton *filterButton;
 @property (strong, nonatomic) IBOutlet UIButton *mapButton;
 @property (strong, nonatomic) NSArray* businesses;
@@ -26,6 +27,8 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 - (IBAction)filterButtonPressed:(UIButton *)sender;
 
 @property (nonatomic, strong) YelpClient *client;
+
+-(void)fetchBusinessWithQuery:(NSString *)query params:(NSDictionary *)params;
 
 @end
 
@@ -46,22 +49,16 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 
     self.searchBar = [UISearchBar new];
     self.searchBar.delegate = self;
-//    self.searchBar.
     self.navigationItem.titleView = self.searchBar;
+    [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setDefaultTextAttributes:@{
+                                                                                                 NSFontAttributeName: [UIFont fontWithName:@"Helvetica" size:12],
+                                                                                                 }];
+    self.searchBar.text = @"Restaurants";
     
     // You can register for Yelp API keys here: http://www.yelp.com/developers/manage_api_keys
     self.client = [[YelpClient alloc] initWithConsumerKey:kYelpConsumerKey consumerSecret:kYelpConsumerSecret accessToken:kYelpToken accessSecret:kYelpTokenSecret];
     
-    [self.client searchWithTerm:@"Thai" success:^(AFHTTPRequestOperation *operation, id response) {
-//        NSLog(@"response: %@", response);
-        NSArray *businessDictionary = response[@"businesses"];
-        self.businesses = [Business BusinessWithDictionary:businessDictionary];
-        [self.searchResults reloadData];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"error: %@", [error description]);
-    }];
-    
+    [self fetchBusinessWithQuery:@"Restaurants" params:nil];
     [self.searchResults registerNib:[UINib nibWithNibName:@"BusinessCell" bundle:nil] forCellReuseIdentifier:@"BusinessCell"];
     
     self.searchResults.delegate = self;
@@ -69,6 +66,12 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     
     self.searchResults.rowHeight = UITableViewAutomaticDimension;
     
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    
+    [super viewWillDisappear:animated];
+    [self.view endEditing:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -85,6 +88,16 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark - Searchbar delegates 
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    
+    [self fetchBusinessWithQuery:searchBar.text params:nil];
+    [searchBar resignFirstResponder];
+    [self.searchResults reloadData];
+}
+
 
 #pragma mark - Tableview delegates
 
@@ -129,6 +142,42 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     
 }
 
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    BusinessCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BusinessCell"];
+    cell.business = self.businesses[indexPath.row];
+    CGSize size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    return size.height + 1;
+}
+
 - (IBAction)filterButtonPressed:(UIButton *)sender {
+    FiltersViewController *vc = [[FiltersViewController alloc]init];
+    UINavigationController *nvc = [[UINavigationController alloc]initWithRootViewController:vc];
+    
+    vc.delegate = self;
+    
+    
+    [self presentViewController:nvc animated:YES completion:nil];
+}
+
+-(void)filtersViewController:(FiltersViewController *)filterViewController didChangeFilters:(NSDictionary *)filters;
+{
+    //fire a new network event
+    //NSLog(@"I got this event:%@", filters);
+    [self fetchBusinessWithQuery:@"Restaurants" params:filters];
+
+}
+
+-(void)fetchBusinessWithQuery:(NSString *)query params:(NSDictionary *)params
+{
+    [self.client searchWithTerm:query params:params success:^(AFHTTPRequestOperation *operation, id response) {
+        //        NSLog(@"response: %@", response);
+        NSArray *businessDictionary = response[@"businesses"];
+        self.businesses = [Business BusinessWithDictionary:businessDictionary];
+        [self.searchResults reloadData];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"error: %@", [error description]);
+    }];
+    
 }
 @end
