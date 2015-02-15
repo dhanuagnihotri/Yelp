@@ -21,8 +21,8 @@ Time spent: `<Number of hours spent>`
 #### Optional
 
 - [ ] Search results page
-   - [ ] Infinite scroll for restaurant results
-   - [ ] Implement map view of restaurant results
+   - [X] Infinite scroll for restaurant results
+   - [X] Implement map view of restaurant results
 - [ ] Filter page
    - [ ] Radius filter should expand as in the real Yelp app
    - [ ] Categories should show a subset of the full list with a "See All" row to expand. 

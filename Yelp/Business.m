@@ -32,17 +32,21 @@
             NSString *street = [dictionary valueForKeyPath:@"location.address"][0];
             NSString *neighborhood = [dictionary valueForKeyPath:@"location.neighborhoods"][0];
             self.address = [NSString stringWithFormat:@"%@, %@",street,neighborhood];
+            self.latitude = [dictionary valueForKeyPath:@"location.coordinate.latitude"] ;
+            self.longitude = [dictionary valueForKeyPath:@"location.coordinate.longitude"] ;
+            
+//            NSLog(@"latitude %@ longitude %@",self.latitude, self.longitude );
         }
         else
         {
-            
+            self.address = @"";
         }
         self.numReviews = [dictionary[@"review_count"] integerValue];
         self.ratingImageURL = dictionary[@"rating_img_url"];
         
         float milesPerMeter = 0.000621371;
-        self.distance = [dictionary [@"distance"] integerValue] * milesPerMeter;
-        
+        self.distance = [dictionary[@"distance"] integerValue] * milesPerMeter;
+     
     }
     return self;
 }

@@ -20,11 +20,11 @@
     return self;
 }
 
-- (AFHTTPRequestOperation *)searchWithTerm:(NSString *)term params:(NSDictionary*)params success:(void (^)(AFHTTPRequestOperation *operation, id response))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+- (AFHTTPRequestOperation *)searchWithTerm:(NSString *)term offset:(NSNumber *)offset params:(NSDictionary*)params success:(void (^)(AFHTTPRequestOperation *operation, id response))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     
     NSNumber *limit = [NSNumber numberWithInteger:20]; //get 20 results at a time, use offset to get additional results
     // For additional parameters, see http://www.yelp.com/developers/documentation/v2/search_api
-    NSDictionary *defaults = @{@"term": term, @"limit": limit, @"offset":[NSNumber numberWithInteger:20], @"ll" : @"37.774866,-122.394556"};
+    NSDictionary *defaults = @{@"term": term, @"limit": limit, @"offset":offset, @"ll" : @"37.774866,-122.394556"};
     
     NSMutableDictionary *allParameters = [defaults mutableCopy];
     if(params)

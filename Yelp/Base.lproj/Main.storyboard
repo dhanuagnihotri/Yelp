@@ -38,12 +38,14 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="mapButtonPressed:" destination="hAx-60-RSE" eventType="touchUpInside" id="o3L-WJ-5Fb"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="filterButton" destination="8oX-T1-Dhq" id="COQ-R7-2Ft"/>
-                        <outlet property="mapButton" destination="xAj-CB-XBz" id="6Py-zU-loq"/>
                         <outlet property="searchResults" destination="THe-th-H4h" id="pqO-jl-Tvp"/>
                     </connections>
                 </viewController>
