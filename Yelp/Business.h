@@ -20,6 +20,8 @@
 @property (nonatomic, assign) CGFloat distance;
 @property (nonatomic, strong) NSString *longitude;
 @property (nonatomic, strong) NSString *latitude;
+@property (nonatomic, strong) NSString *displayAddress;
+@property (nonatomic, strong) NSString *phone;
 
 +(NSArray*)BusinessWithDictionary:(NSArray*)dictionaries;
 

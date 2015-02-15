@@ -29,6 +29,8 @@
 		95603D6B1A907CC300B7827F /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95603D691A907CC300B7827F /* MapViewController.xib */; };
 		95603D6D1A9081F800B7827F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95603D6C1A9081F800B7827F /* CoreLocation.framework */; };
 		95603D6F1A90821200B7827F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95603D6E1A90821200B7827F /* MapKit.framework */; };
+		95603D731A91001E00B7827F /* RestaurantDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95603D711A91001E00B7827F /* RestaurantDetailsViewController.m */; };
+		95603D741A91001E00B7827F /* RestaurantDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95603D721A91001E00B7827F /* RestaurantDetailsViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +79,9 @@
 		95603D691A907CC300B7827F /* MapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapViewController.xib; sourceTree = "<group>"; };
 		95603D6C1A9081F800B7827F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		95603D6E1A90821200B7827F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		95603D701A91001E00B7827F /* RestaurantDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantDetailsViewController.h; sourceTree = "<group>"; };
+		95603D711A91001E00B7827F /* RestaurantDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantDetailsViewController.m; sourceTree = "<group>"; };
+		95603D721A91001E00B7827F /* RestaurantDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantDetailsViewController.xib; sourceTree = "<group>"; };
 		9608C66B4A64B588BFD85930 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		C84B0EAB3547D5DF977043FB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -195,6 +200,9 @@
 				95603D5F1A8EECA400B7827F /* SwitchCell.xib */,
 				95603D401A8AFFE900B7827F /* SearchResultsViewController.h */,
 				95603D411A8AFFE900B7827F /* SearchResultsViewController.m */,
+				95603D701A91001E00B7827F /* RestaurantDetailsViewController.h */,
+				95603D711A91001E00B7827F /* RestaurantDetailsViewController.m */,
+				95603D721A91001E00B7827F /* RestaurantDetailsViewController.xib */,
 				95603D621A9049E400B7827F /* PriceCell.h */,
 				95603D631A9049E400B7827F /* PriceCell.m */,
 				95603D641A9049E400B7827F /* PriceCell.xib */,
@@ -322,6 +330,7 @@
 				95603D271A8AEF2700B7827F /* LaunchScreen.xib in Resources */,
 				95603D241A8AEF2700B7827F /* Images.xcassets in Resources */,
 				95603D661A9049E400B7827F /* PriceCell.xib in Resources */,
+				95603D741A91001E00B7827F /* RestaurantDetailsViewController.xib in Resources */,
 				95603D611A8EECA400B7827F /* SwitchCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -376,6 +385,7 @@
 				95603D5B1A8DBDCD00B7827F /* FiltersViewController.m in Sources */,
 				95603D601A8EECA400B7827F /* SwitchCell.m in Sources */,
 				95603D651A9049E400B7827F /* PriceCell.m in Sources */,
+				95603D731A91001E00B7827F /* RestaurantDetailsViewController.m in Sources */,
 				95603D4A1A8BC6D100B7827F /* Business.m in Sources */,
 				95603D4E1A8BE39300B7827F /* YelpClient.m in Sources */,
 				95603D421A8AFFE900B7827F /* SearchResultsViewController.m in Sources */,

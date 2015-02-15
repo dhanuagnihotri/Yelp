@@ -13,6 +13,7 @@
 #import "FiltersViewController.h"
 #import "MapViewController.h"
 #import "SVPullToRefresh.h"
+#import "RestaurantDetailsViewController.h"
 
 NSString * const kYelpConsumerKey = @"vxKwwcR_NMQ7WaEiQBK_CA";
 NSString * const kYelpConsumerSecret = @"33QCvh5bIF5jIHR5klQr7RtBDhQ";
@@ -140,8 +141,8 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 {
     BusinessCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BusinessCell"];
     cell.business = self.businesses[indexPath.row];
+    cell.nameLabel.text = [NSString stringWithFormat:@"%ld. %@",indexPath.row+1,cell.business.name];
     
-
     if([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)] )
         cell.preservesSuperviewLayoutMargins = false;
     if([cell respondsToSelector:@selector(setSeparatorInset:)] )
@@ -154,22 +155,12 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    
-//    MovieDetailViewController *vc = [[MovieDetailViewController alloc]init];
-//    vc.movie = self.filteredMovies[indexPath.row];
-//    
-//    vc.hidesBottomBarWhenPushed = YES;
-//    
-//    [self.navigationController pushViewController:vc animated:YES];
-}
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
--(void) tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
-{
-//    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-//    cell.contentView.backgroundColor = [UIColor orangeColor];
-//    cell.backgroundColor = [UIColor orangeColor];
-    
+    RestaurantDetailsViewController *vc = [[RestaurantDetailsViewController alloc]init];
+    vc.business = self.businesses[indexPath.row];
+
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

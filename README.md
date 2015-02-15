@@ -20,7 +20,7 @@ Time spent: `<Number of hours spent>`
 
 #### Optional
 
-- [ ] Search results page
+- [X] Search results page
    - [X] Infinite scroll for restaurant results
    - [X] Implement map view of restaurant results
 - [ ] Filter page
@@ -28,7 +28,7 @@ Time spent: `<Number of hours spent>`
    - [ ] Categories should show a subset of the full list with a "See All" row to expand. 
    - [ ] Implement a custom switch
 
-- [ ] Implement the restaurant detail page.
+- [X] Implement the restaurant detail page.
 
 ### Walkthrough
 
