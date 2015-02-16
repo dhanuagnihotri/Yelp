@@ -24,6 +24,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-SevenSwitch.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,27 +37,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0B35EC0588FF50E3223A2609</key>
+		<key>1ECA68095BB6CA7A9B569F0E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6AE0FEA5A338E27D3FECCF8C</key>
+		<key>503C4E5DC98F5325DDAF3EB1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>952F576907637AF335996797</key>
+		<key>5BB3CCD869399BA8B3A4D715</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B7577FDDFC8A595C1ABDDC55</key>
+		<key>C1D87B71A3EA5DBB66A91F2A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BE5E27D89051A0576A936AD0</key>
+		<key>DE8E61594D3D1ED37F8718EC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E5FD11AE219045075E9DFB79</key>
 		<dict>
 			<key>primary</key>
 			<true/>

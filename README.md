@@ -1,7 +1,7 @@
 ## Yelp
 This is a Yelp search app client using the [Yelp API].
 
-Time spent: `<Number of hours spent>`
+Time spent: 20 hours spent in total
 
 ### Features
 
@@ -32,4 +32,15 @@ Time spent: `<Number of hours spent>`
 
 ### Walkthrough
 
-![Video Walkthrough](...)
+Walkthrough of all user stories:
+
+![Video Walkthrough](yelp.gif)
+
+GIF created with [LiceCap](http://www.cockos.com/licecap/).
+
+Libraries:
+- SVProgressHUD
+- AFNetworking 
+- BDBOAuth1Manager
+- SVPullToRefresh
+- SevenSwitch
