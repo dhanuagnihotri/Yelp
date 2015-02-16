@@ -19,6 +19,10 @@
 - (void)awakeFromNib {
     // Initialization code
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    self.toggleSwitch.backgroundColor = [UIColor colorWithRed:0.769 green:0.769 blue:0.769 alpha:1] /*#c4c4c4*/;
+    self.toggleSwitch.layer.cornerRadius = 16.0;
+    self.toggleSwitch.transform = CGAffineTransformMakeScale(1.2, 1);
 }
 
 - (void)setFrame:(CGRect)frame {

@@ -30,9 +30,20 @@
 
 -(void)initCategories;
 
+
+@property (strong,nonatomic) NSUserDefaults *defaults;
+
+-(void)loadUserDefaults;
+-(void)saveUserDefaults;
+
 @end
 
 @implementation FiltersViewController
+
+NSString * const popularKey= @"popular";
+NSString * const sortKey= @"sort";
+NSString * const distanceKey= @"distance";
+NSString * const categoriesKey= @"categories";
 
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -56,18 +67,20 @@
                               ];
         self.selectedSortMode = [NSMutableSet set];
         
-        int milesTometers = 1609.34;
+        float milesToMeters = 1609.34;
         self.distanceCategories = @[
                                     @{@"name": @"Best Match", @"code":@0 },
-                                    @{@"name": @"0.3 miles",   @"code":[NSNumber numberWithDouble:(0.3*milesTometers)]},
-                                    @{@"name": @"1 mile", @"code" : [NSNumber numberWithDouble:(1*milesTometers)]},
-                                    @{@"name": @"5 miles", @"code" :[NSNumber numberWithDouble:(5*milesTometers)]},
-                                    @{@"name": @"20 miles", @"code" : [NSNumber numberWithDouble:(20*milesTometers)] },
+                                    @{@"name": @"0.3 miles",   @"code":[NSNumber numberWithDouble:(0.3*milesToMeters)]},
+                                    @{@"name": @"1 mile", @"code" : [NSNumber numberWithDouble:(1*milesToMeters)]},
+                                    @{@"name": @"5 miles", @"code" :[NSNumber numberWithDouble:(5*milesToMeters)]},
+                                    @{@"name": @"20 miles", @"code" : [NSNumber numberWithDouble:(20*milesToMeters)] },
                                     ];
         self.selectedDistance = [NSMutableSet set];
 
         self.selectedCategories = [NSMutableSet set];
         [self initCategories];
+        
+        self.defaults = [NSUserDefaults standardUserDefaults];
     }
     return self;
 }
@@ -75,11 +88,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(onCancelButton)];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(100, 430, 71, 30);
+    [button.titleLabel setFont:[UIFont boldSystemFontOfSize:13.0f]];
+    [button addTarget:self action:@selector(onCancelButton) forControlEvents:UIControlEventTouchUpInside];
+    [button setTitle:@"Cancel" forState:UIControlStateNormal];
+    UIBarButtonItem *useItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    button.layer.borderColor = [UIColor colorWithRed:0.741 green:0.082 blue:0.035 alpha:1].CGColor ;/*#bd1509*/
+    button.layer.borderWidth = 1.0;
+    button.layer.cornerRadius = 5;
+    [self.navigationItem setLeftBarButtonItems:@[useItem]];
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Search" style:UIBarButtonItemStylePlain target:self action:@selector(onSearchButton)];
-    
-    self.navigationController.navigationBar.barTintColor=  [UIColor colorWithRed:0.816 green:0.094 blue:0.024 alpha:1]; 
+    UIButton *button1 = [UIButton buttonWithType:UIButtonTypeCustom];
+    button1.frame = CGRectMake(100, 430, 71, 30);
+    [button1.titleLabel setFont:[UIFont boldSystemFontOfSize:13.0f]];
+    [button1 addTarget:self action:@selector(onSearchButton) forControlEvents:UIControlEventTouchUpInside];
+    [button1 setTitle:@"Search" forState:UIControlStateNormal];
+    UIBarButtonItem *useItem1 = [[UIBarButtonItem alloc] initWithCustomView:button1];
+    button1.layer.borderColor = [UIColor colorWithRed:0.741 green:0.082 blue:0.035 alpha:1].CGColor ;/*#bd1509*/
+    button1.layer.borderWidth = 1.0;
+    button1.layer.cornerRadius = 5;
+    [self.navigationItem setRightBarButtonItems:@[useItem1]];
+  
+    self.navigationController.navigationBar.barTintColor=  [UIColor colorWithRed:0.816 green:0.094 blue:0.024 alpha:1];
     
     self.filtersTableView.dataSource = self;
     self.filtersTableView.delegate = self;
@@ -92,6 +123,8 @@
     
     if([self.searchString isEqualToString:@"Restaurants"])
         [self.filtersTable addObject:@{@"title": @"Categories", }];
+    
+    [self loadUserDefaults];
 
 
 }
@@ -134,7 +167,6 @@
     SwitchCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SwitchCell"];
     
     cell.delegate = self;
-//    cell.titleLabel.text= self.filtersTable[indexPath.section][@"rows"][indexPath.row];
     
     [cell.contentView.layer setBorderColor:[UIColor grayColor].CGColor];
     [cell.contentView.layer setBorderWidth:1.0f];
@@ -163,7 +195,6 @@
             break;
     }
 
-
     return cell;
 }
 
@@ -190,18 +221,21 @@
     if(indexPath.section==0)
     {
         [self.selectedPopularMode removeAllObjects];
-        [self.selectedPopularMode addObject:self.popularCategories[indexPath.row]];
+        if(value)
+            [self.selectedPopularMode addObject:self.popularCategories[indexPath.row]];
     }
     else if (indexPath.section==1)
     {
         [self.selectedDistance removeAllObjects];
-        [self.selectedDistance addObject:self.distanceCategories[indexPath.row]];
+        if(value)
+            [self.selectedDistance addObject:self.distanceCategories[indexPath.row]];
         
     }
     else if (indexPath.section==2)
     {
         [self.selectedSortMode removeAllObjects];
-        [self.selectedSortMode addObject:self.sortModeCategories[indexPath.row]];
+        if(value)
+            [self.selectedSortMode addObject:self.sortModeCategories[indexPath.row]];
     }
     else if (indexPath.section==3)
     {
@@ -270,6 +304,7 @@
 
 -(void)onSearchButton
 {
+    [self saveUserDefaults];
     [self.delegate filtersViewController:self didChangeFilters:self.filters];
     [self dismissViewControllerAnimated:YES completion:nil];    
 }
@@ -402,5 +437,52 @@
                             @{@"name" : @"Vegetarian", @"code": @"vegetarian" },
                             @{@"name" : @"Vietnamese", @"code": @"vietnamese" }];
  }
+
+#pragma userdefaults methods
+
+-(void)loadUserDefaults
+{
+
+    NSArray *array = [self.defaults objectForKey:popularKey];
+    for(NSDictionary *category in array)
+    {
+        [self.selectedPopularMode addObject:category];
+    }
+    array = [self.defaults objectForKey:sortKey];
+    for(NSDictionary *category in array)
+    {
+        [self.selectedSortMode addObject:category];
+    }
+    array = [self.defaults objectForKey:distanceKey];
+    for(NSDictionary *category in array)
+    {
+        [self.selectedDistance addObject:category];
+    }
+    array = [self.defaults objectForKey:categoriesKey];
+    for(NSDictionary *category in array)
+    {
+        [self.selectedCategories addObject:category];
+    }
+}
+
+-(void)saveUserDefaults
+{
+    NSArray *array = [self.selectedPopularMode allObjects];
+    [self.defaults setObject:array forKey:popularKey ];
+
+    array = [self.selectedSortMode allObjects];
+    [self.defaults setObject:array forKey:sortKey ];
+    
+    array = [self.selectedDistance allObjects];
+    [self.defaults setObject:array forKey:distanceKey ];
+    
+    array = [self.selectedCategories allObjects];
+    [self.defaults setObject:array forKey:categoriesKey];
+
+    [self.defaults synchronize];
+
+
+}
+
 
 @end

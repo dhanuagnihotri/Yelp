@@ -29,6 +29,10 @@
     // Do any additional setup after loading the view from its nib.
     
     self.navigationController.navigationBar.barTintColor=  [UIColor colorWithRed:0.816 green:0.094 blue:0.024 alpha:1];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    [self.navigationController.navigationBar
+     setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+
     
     self.nameLabel.text = self.business.name;
     self.distanceLabel.text = [NSString stringWithFormat:@"%0.2f mi",self.business.distance];    

@@ -23,9 +23,12 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 @interface SearchResultsViewController () <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, FiltersViewControllerDelegate, UISearchBarDelegate>
 @property (strong, nonatomic) IBOutlet UIButton *filterButton;
 @property (strong, nonatomic) IBOutlet UIButton *mapButton;
+
 @property (strong, nonatomic) NSArray* businessesResults;
 @property (strong, nonatomic) NSMutableArray *businesses;
 @property (strong, nonatomic) IBOutlet UITableView *searchResults;
+@property (nonatomic, assign) NSInteger offset;
+@property(strong,nonatomic)NSDictionary *filters;
 
 @property (strong, nonatomic)  UISearchBar *searchBar;
 @property (strong,nonatomic) NSString *searchString;
@@ -67,7 +70,7 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     // You can register for Yelp API keys here: http://www.yelp.com/developers/manage_api_keys
     self.client = [[YelpClient alloc] initWithConsumerKey:kYelpConsumerKey consumerSecret:kYelpConsumerSecret accessToken:kYelpToken accessSecret:kYelpTokenSecret];
     
-    [self fetchBusinessWithQuery:self.searchString offset:@0 params:nil]; //search for restaurants to start off, no offset or filters
+    [self fetchBusinessWithQuery:self.searchString offset:@0 params:nil]; //search for default query to start off, no offset or filters
     
     [self.searchResults registerNib:[UINib nibWithNibName:@"BusinessCell" bundle:nil] forCellReuseIdentifier:@"BusinessCell"];
     
@@ -81,6 +84,7 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     [self.searchResults addInfiniteScrollingWithActionHandler:^{
         [weakSelf insertRowAtBottom];
     }];
+    self.offset = 0;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -96,12 +100,12 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 
 - (void)insertRowAtBottom {
     __weak SearchResultsViewController *weakSelf = self;
-    
+    self.offset+=20;
     int64_t delayInSeconds = 2.0;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         
-    [self.client searchWithTerm:self.searchString offset:@20 params:nil success:^(AFHTTPRequestOperation *operation, id response) {
+    [self.client searchWithTerm:self.searchString offset:@(self.offset) params:self.filters success:^(AFHTTPRequestOperation *operation, id response) {
             //        NSLog(@"response: %@", response);
             NSArray *businessDictionary = response[@"businesses"];
             self.businessesResults = [Business BusinessWithDictionary:businessDictionary];
@@ -124,6 +128,17 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     
     self.searchString = self.searchBar.text;
     [self.businesses removeAllObjects];
+    self.filters=nil;
+    self.offset = 0;
+    
+    //On a new search clear out the filters
+    NSUserDefaults * defs = [NSUserDefaults standardUserDefaults];
+    NSDictionary * dict = [defs dictionaryRepresentation];
+    for (id key in dict) {
+        [defs removeObjectForKey:key];
+    }
+    [defs synchronize];
+
     [self fetchBusinessWithQuery:self.searchString offset:@0 params:nil];
     [searchBar resignFirstResponder];
     [self.searchResults reloadData];
@@ -190,10 +205,14 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 
 -(void)filtersViewController:(FiltersViewController *)filterViewController didChangeFilters:(NSDictionary *)filters;
 {
-    //fire a new network event
     //NSLog(@"I got this event:%@", filters);
+    //store the filters recieved, however clear it out if starting a new search
+    self.filters = filters;
     //clean out the existing data in tableview
     [self.businesses removeAllObjects];
+    self.offset = 0;
+    
+    //fire a new network search
     [self fetchBusinessWithQuery:self.searchString offset:@0 params:filters];
 
 }

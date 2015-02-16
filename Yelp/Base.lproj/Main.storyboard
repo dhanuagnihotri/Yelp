@@ -46,6 +46,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="filterButton" destination="8oX-T1-Dhq" id="COQ-R7-2Ft"/>
+                        <outlet property="mapButton" destination="xAj-CB-XBz" id="wQx-Pq-2GP"/>
                         <outlet property="searchResults" destination="THe-th-H4h" id="pqO-jl-Tvp"/>
                     </connections>
                 </viewController>

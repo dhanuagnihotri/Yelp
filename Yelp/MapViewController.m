@@ -22,45 +22,19 @@
     // Do any additional setup after loading the view from its nib.
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(100, 430, 80, 30);
-    button.layer.masksToBounds = NO;
-    button.layer.cornerRadius = 5;
-    button.backgroundColor = [UIColor redColor];
-    
+    button.frame = CGRectMake(100, 430, 71, 30);
+    [button.titleLabel setFont:[UIFont boldSystemFontOfSize:15.0f]];
     [button addTarget:self action:@selector(onListButton) forControlEvents:UIControlEventTouchUpInside];
     [button setTitle:@"List" forState:UIControlStateNormal];
-    
     UIBarButtonItem *useItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    button.layer.borderColor = [UIColor colorWithRed:0.741 green:0.082 blue:0.035 alpha:1].CGColor ;/*#bd1509*/
+    button.layer.borderWidth = 1.0;
+    button.layer.cornerRadius = 5;
     [self.navigationItem setRightBarButtonItems:@[useItem]];
     
     self.mapView.delegate = self;
     
-//    useButton.frame = CGRectMake(100, 430, 100, 40);
-//    useButton.layer.masksToBounds = NO;
-//    useButton.layer.cornerRadius = 10;
-//    useButton.layer.shadowOffset = CGSizeMake(1.5, 1.5);
-//    useButton.layer.shadowRadius = 0.5;
-//    useButton.layer.shadowOpacity = 1.0;
-//    useButton.layer.shadowColor = [UIColor blackColor].CGColor;
-//    useButton.backgroundColor = [UIColor redColor];
-    
-    
-    
-//    
-//    
-//    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(onCancelButton)];
-//    cancelButton. layer.borderColor = [UIColor colorWithRed:0.741 green:0.082 blue:0.035 alpha:1].CGColor ;/*#bd1509*/
-//    self.filterButton.layer.borderWidth = 1.0;
-//    self.filterButton.layer.cornerRadius = 5;
-//    
-    
-    
-//    UIBarButtonItem *useItem = [[UIBarButtonItem alloc] initWithCustomView:useButton];
-//    [self.navigationItem setRightBarButtonItems:@[useItem]];
-//    
-    
-//    self.navigationItem.leftBarButtonItem =
-    
+  
     self.navigationController.navigationBar.barTintColor=  [UIColor colorWithRed:0.816 green:0.094 blue:0.024 alpha:1];
 }
 

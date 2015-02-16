@@ -15,11 +15,17 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="nxm-IV-QFX">
+                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="nxm-IV-QFX">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                 </mapView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="nxm-IV-QFX" secondAttribute="bottom" id="6l4-Gb-Tra"/>
+                <constraint firstItem="nxm-IV-QFX" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="cIt-mc-v9C"/>
+                <constraint firstAttribute="trailing" secondItem="nxm-IV-QFX" secondAttribute="trailing" id="nSW-mG-moP"/>
+                <constraint firstItem="nxm-IV-QFX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="vL9-tY-0YS"/>
+            </constraints>
             <point key="canvasLocation" x="413" y="377"/>
         </view>
     </objects>
