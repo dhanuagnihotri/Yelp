@@ -21,6 +21,12 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
+- (void)setFrame:(CGRect)frame {
+    frame.origin.x += 10;
+    frame.size.width -= 2 * 10;
+    [super setFrame:frame];
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

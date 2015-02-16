@@ -175,6 +175,7 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     UINavigationController *nvc = [[UINavigationController alloc]initWithRootViewController:vc];
     
     vc.delegate = self;
+    vc.searchString = self.searchString;
     [self presentViewController:nvc animated:YES completion:nil];
 }
 

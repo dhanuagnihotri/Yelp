@@ -19,5 +19,6 @@
 @interface FiltersViewController : UIViewController
 
 @property (nonatomic,weak) id <FiltersViewControllerDelegate> delegate;
+@property (nonatomic,strong) NSString* searchString;
 
 @end
